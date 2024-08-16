@@ -31,9 +31,13 @@ export default class LibAVWrapper {
         }
     }
 
-    async probe(blob: Blob) {
+    async #get() {
         if (!this.libav) throw new Error("LibAV wasn't initialized");
-        const libav = await this.libav;
+        return await this.libav;
+    }
+
+    async probe(blob: Blob) {
+        const libav = await this.#get();
 
         await libav.mkreadaheadfile('input', blob);
 
@@ -72,8 +76,8 @@ export default class LibAVWrapper {
     }
 
     async remux({ blob, output, args }: RenderParams) {
-        if (!this.libav) throw new Error("LibAV wasn't initialized");
-        const libav = await this.libav;
+        const libav = await this.#get();
+
         const inputKind = blob.type.split("/")[0];
         const inputExtension = LibAVWrapper.getExtensionFromType(blob);
 
