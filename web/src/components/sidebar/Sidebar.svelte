@@ -13,6 +13,7 @@
     import IconComet from "@tabler/icons-svelte/IconComet.svelte";
     import IconHeart from "@tabler/icons-svelte/IconHeart.svelte";
     import IconInfoCircle from "@tabler/icons-svelte/IconInfoCircle.svelte";
+    import IconTransform from "@tabler/icons-svelte/IconTransform.svelte";
 
     let screenWidth: number;
     let settingsLink = defaultNavPage("settings");
@@ -35,6 +36,14 @@
             <SidebarTab tabName="remux" tabLink="/remux" beta>
                 <IconRepeat />
             </SidebarTab>
+            <SidebarTab tabName="convert" tabLink="/convert">
+                <IconTransform />
+            </SidebarTab>
+            <!--
+            <SidebarTab tabName="shrink" tabLink="/shrink">
+                <IconArrowsMinimize />
+            </SidebarTab>
+            -->
         </div>
         <div id="sidebar-info" class="sidebar-inner-container">
             <SidebarTab tabName="settings" tabLink={settingsLink}>
