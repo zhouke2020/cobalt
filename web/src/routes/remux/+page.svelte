@@ -111,7 +111,7 @@
             }
 
             const render = await ff
-                .render({
+                .remux({
                     blob: file,
                     args: ["-c", "copy", "-map", "0"],
                 })
