@@ -1,6 +1,7 @@
 <script lang="ts">
     import mime from "mime";
-    import LibAVWrapper from "$lib/libav";
+    import LibAVWrapper from "$lib/libav/remux";
+
     import { beforeNavigate, goto } from "$app/navigation";
 
     import { t } from "$lib/i18n/translations";
