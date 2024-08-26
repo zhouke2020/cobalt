@@ -28,6 +28,7 @@ export default class LibAVWrapper {
         if (this.#libav) {
             const libav = await this.#libav;
             libav.terminate();
+            this.#libav = null;
         }
     }
 
@@ -41,7 +42,7 @@ export default class LibAVWrapper {
 
     static getExtensionFromType(blob: Blob) {
         const extensions = mime.getAllExtensions(blob.type);
-        const overrides = ['mp3', 'mov'];
+        const overrides = ['mp3', 'mov', 'opus'];
 
         if (!extensions)
             return;
