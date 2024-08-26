@@ -2,6 +2,7 @@
     import mime from "mime";
     import LibAVWrapper from "$lib/libav/remux";
 
+    import { onDestroy } from "svelte";
     import { beforeNavigate, goto } from "$app/navigation";
 
     import { t } from "$lib/i18n/translations";
@@ -102,6 +103,7 @@
                     });
                 return;
             }
+            console.log(file_info)
 
             totalDuration = Number(file_info.format.duration);
 
@@ -193,6 +195,8 @@
     $: if (file) {
         render();
     }
+
+    onDestroy(() => ff.shutdown());
 </script>
 
 <svelte:head>
