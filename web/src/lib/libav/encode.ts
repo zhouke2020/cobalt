@@ -423,7 +423,6 @@ export default class EncodeLibAV extends LibAVWrapper {
                 {
                     format_name,
                     filename: 'output',
-                    device: true,
                     open: true,
                     codecpars: true
                 }, ostreams
