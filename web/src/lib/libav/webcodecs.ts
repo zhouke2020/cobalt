@@ -6,12 +6,12 @@ const has = <T extends object>(obj: T, key: string) => {
 }
 
 export default class WebCodecsWrapper {
-    #ready?: Promise<void>;
+    static #ready?: Promise<void>;
 
     async load() {
         LibAV.base = '/_libav';
-        if (typeof this.#ready === 'undefined') {
-            this.#ready = LibAVPolyfill.load({
+        if (typeof WebCodecsWrapper.#ready === 'undefined') {
+            WebCodecsWrapper.#ready = LibAVPolyfill.load({
                 polyfill: true,
                 LibAV,
                 libavOptions: {
@@ -21,7 +21,7 @@ export default class WebCodecsWrapper {
             });
         }
 
-        await this.#ready;
+        await WebCodecsWrapper.#ready;
     }
 
     // FIXME: save me generics. generics save me
