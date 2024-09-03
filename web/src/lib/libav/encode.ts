@@ -33,9 +33,7 @@ export default class EncodeLibAV extends LibAVWrapper {
     async init() {
         await super.init();
         if (!this.#webcodecs) {
-            this.#webcodecs = new WebCodecsWrapper(
-                super.get().then(({ libav }) => libav)
-            );
+            this.#webcodecs = new WebCodecsWrapper();
 
             await this.#webcodecs.load();
         }

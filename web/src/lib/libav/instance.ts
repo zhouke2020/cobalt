@@ -15,7 +15,7 @@ export default class LibAVWrapper {
         this.concurrency = Math.min(4, browser ? navigator.hardwareConcurrency : 0);
     }
 
-    async init() {
+    init() {
         if (!this.#libav) {
             this.#libav = this.#libav__constructor.LibAV({
                 yesthreads: this.#useThreads,

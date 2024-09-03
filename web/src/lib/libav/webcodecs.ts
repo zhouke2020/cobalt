@@ -1,4 +1,4 @@
-import type { LibAV } from "@imput/libav.js-encode-cli";
+import LibAV from "@imput/libav.js-encode-cli";
 import * as LibAVPolyfill from "@imput/libavjs-webcodecs-polyfill";
 
 const has = <T extends object>(obj: T, key: string) => {
@@ -6,18 +6,18 @@ const has = <T extends object>(obj: T, key: string) => {
 }
 
 export default class WebCodecsWrapper {
-    #libav: Promise<LibAV>;
     #ready?: Promise<void>;
 
-    constructor(libav: Promise<LibAV>) {
-        this.#libav = libav;
-    }
-
     async load() {
+        LibAV.base = '/_libav';
         if (typeof this.#ready === 'undefined') {
             this.#ready = LibAVPolyfill.load({
                 polyfill: true,
-                LibAV: { LibAV: () => this.#libav }
+                LibAV,
+                libavOptions: {
+                    yesthreads: true,
+                    base: '/_libav'
+                }
             });
         }
 
