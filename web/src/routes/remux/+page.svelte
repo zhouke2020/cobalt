@@ -2,13 +2,12 @@
     import mime from "mime";
     import LibAVWrapper from "$lib/libav/remux";
 
-    import { onDestroy } from "svelte";
+    import { onDestroy, onMount } from "svelte";
     import { beforeNavigate, goto } from "$app/navigation";
 
     import { t } from "$lib/i18n/translations";
     import { createDialog } from "$lib/dialogs";
     import { downloadFile } from "$lib/download";
-    import { browser } from "$app/environment";
 
     import Skeleton from "$components/misc/Skeleton.svelte";
     import DropReceiver from "$components/misc/DropReceiver.svelte";
@@ -53,13 +52,9 @@
         }
     });
 
-    if (browser) {
-        ff.init();
-    }
-
     const render = async () => {
         if (!file || processing) return;
-        await ff.init();
+        ff.init();
 
         let dialogOpened;
         try {
@@ -199,6 +194,7 @@
         render();
     }
 
+    onMount(() => ff.init());
     onDestroy(() => ff.terminate());
 </script>
 

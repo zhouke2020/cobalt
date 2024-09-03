@@ -7,16 +7,12 @@
     import DropReceiver from "$components/misc/DropReceiver.svelte";
     import FileReceiver from "$components/misc/FileReceiver.svelte";
     import type { StreamInfo } from "$lib/types/libav";
-    import { onDestroy } from "svelte";
+    import { onDestroy, onMount } from "svelte";
 
     let file: File | undefined;
     let streamInfo: StreamInfo[] | undefined;
 
     const ff = new LibAVWrapper();
-    if (browser) {
-        ff.init();
-    }
-
     const render = async () => {
         if (!file) return;
         await ff.init();
@@ -58,6 +54,7 @@
         pseudolink.click();
     };
 
+    onMount(() => ff.init());
     onDestroy(async () => {
         if (browser) {
             await ff.cleanup();
