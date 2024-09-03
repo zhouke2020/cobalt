@@ -47,15 +47,18 @@ export default class EncodeLibAV extends LibAVWrapper {
     }
 
     async cleanup() {
-        const { libav } = await this.#get();
+        let libav;
+        try {
+            ({ libav } = await this.#get());
+        } catch {}
 
         if (this.#has_file) {
-            await libav.unlinkreadaheadfile('input');
+            if (libav) await libav.unlinkreadaheadfile('input');
             this.#has_file = false;
         }
 
         if (this.#fmt_ctx) {
-            await libav.avformat_close_input_js(this.#fmt_ctx);
+            if (libav) await libav.avformat_close_input_js(this.#fmt_ctx);
             this.#fmt_ctx = undefined;
             this.#istreams = undefined;
         }
