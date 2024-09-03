@@ -2,6 +2,7 @@
     import LibAVWrapper from "$lib/libav/encode";
     import { t } from "$lib/i18n/translations";
     import stringify from "json-stringify-pretty-compact";
+    import { browser } from "$app/environment";
 
     import DropReceiver from "$components/misc/DropReceiver.svelte";
     import FileReceiver from "$components/misc/FileReceiver.svelte";
@@ -12,7 +13,9 @@
     let streamInfo: StreamInfo[] | undefined;
 
     const ff = new LibAVWrapper();
-    ff.init();
+    if (browser) {
+        ff.init();
+    }
 
     const render = async () => {
         if (!file) return;
@@ -56,8 +59,10 @@
     };
 
     onDestroy(async () => {
-        await ff.cleanup();
-        ff.shutdown();
+        if (browser) {
+            await ff.cleanup();
+            ff.shutdown();
+        }
     });
 
     $: if (file) {
