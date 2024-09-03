@@ -241,7 +241,8 @@ export default class WebCodecsWrapper {
             }
         }
 
-        return destination.encode(data);
+        destination.encode(data);
+        data.close();
     }
 
     static encodeVideo(data: VideoFrame | LibAVPolyfill.VideoFrame, destination: VideoEncoder) {
@@ -260,6 +261,7 @@ export default class WebCodecsWrapper {
             }
         }
 
-        return destination.encode(data as VideoFrame);
+        destination.encode(data as VideoFrame);
+        data.close();
     }
 }
