@@ -26,13 +26,11 @@ export default class WebCodecsWrapper {
 
     // FIXME: save me generics. generics save me
     async #getDecoder(config: VideoDecoderConfig | AudioDecoderConfig) {
+        await this.load();
+
         if (has(config, 'numberOfChannels') && has(config, 'sampleRate')) {
             const audioConfig = config as AudioDecoderConfig;
             for (const source of [ window, LibAVPolyfill ]) {
-                if (source === LibAVPolyfill) {
-                    await this.load();
-                }
-
                 try {
                     const { supported } = await source.AudioDecoder.isConfigSupported(audioConfig);
                     if (supported) return source.AudioDecoder;
@@ -44,10 +42,6 @@ export default class WebCodecsWrapper {
         } else {
             const videoConfig = config as VideoDecoderConfig;
             for (const source of [ window, LibAVPolyfill ]) {
-                if (source === LibAVPolyfill) {
-                    await this.load();
-                }
-
                 try {
                     const { supported } = await source.VideoDecoder.isConfigSupported(videoConfig);
                     if (supported) return source.VideoDecoder;
@@ -62,13 +56,10 @@ export default class WebCodecsWrapper {
     }
 
     async #getEncoder(config: VideoEncoderConfig | AudioEncoderConfig) {
+        await this.load();
         if (has(config, 'numberOfChannels') && has(config, 'sampleRate')) {
             const audioConfig = config as AudioEncoderConfig;
             for (const source of [ window, LibAVPolyfill ]) {
-                if (source === LibAVPolyfill) {
-                    await this.load();
-                }
-
                 try {
                     const { supported } = await source.AudioEncoder.isConfigSupported(audioConfig);
                     if (supported) return source.AudioEncoder;
@@ -80,10 +71,6 @@ export default class WebCodecsWrapper {
         } else if (has(config, 'width') && has(config, 'height')) {
             const videoConfig = config as VideoEncoderConfig;
             for (const source of [ window, LibAVPolyfill ]) {
-                if (source === LibAVPolyfill) {
-                    await this.load();
-                }
-
                 try {
                     const { supported } = await source.VideoEncoder.isConfigSupported(videoConfig);
                     if (supported) return source.VideoEncoder;
