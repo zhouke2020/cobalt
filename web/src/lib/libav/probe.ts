@@ -25,14 +25,14 @@ async function probeSingleAudio(config: AudioEncoderConfig) {
                 return { supported };
             }
         }
-    } catch(e) { console.warn('audio native probe fail', e) }
+    } catch(e) { /* console.warn('audio native probe fail', e) */ }
 
     try {
         const { supported } = await LibAVPolyfill.AudioEncoder.isConfigSupported(config);
         if (supported) {
             return { supported, slow: true }
         }
-    } catch(e) { console.warn('audio polyfill probe fail', e) }
+    } catch(e) { /* console.warn('audio polyfill probe fail', e) */ }
 
     return { supported: false }
 }
@@ -45,14 +45,14 @@ async function probeSingleVideo(config: VideoEncoderConfig) {
                 return { supported };
             }
         }
-    } catch(e) { console.warn('video native probe fail', e) }
+    } catch(e) { /* console.warn('video native probe fail', e) */ }
 
     try {
         const { supported } = await LibAVPolyfill.VideoEncoder.isConfigSupported(config);
         if (supported) {
             return { supported, slow: true }
         }
-    } catch(e) { console.warn('video polyfill probe fail', e) }
+    } catch(e) { /* console.warn('video polyfill probe fail', e) */ }
 
     return { supported: false }
 }
