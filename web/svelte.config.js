@@ -54,6 +54,7 @@ const config = {
                 "connect-src": ["*"],
                 "default-src": ["none"],
 
+                "media-src": ["self"],
                 "font-src": ["self"],
                 "style-src": ["self", "unsafe-inline"],
                 "img-src": ["*", "data:"],

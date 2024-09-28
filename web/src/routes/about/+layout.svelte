@@ -6,6 +6,8 @@
     import PageNavTab from "$components/subnav/PageNavTab.svelte";
     import PageNavSection from "$components/subnav/PageNavSection.svelte";
 
+    import Brainrot from "$components/misc/Brainrot.svelte";
+
     import IconLock from "@tabler/icons-svelte/IconLock.svelte";
     import IconComet from "@tabler/icons-svelte/IconComet.svelte";
     import IconLicense from "@tabler/icons-svelte/IconLicense.svelte";
@@ -65,3 +67,4 @@
 
     <slot slot="content"></slot>
 </PageNav>
+<Brainrot />
